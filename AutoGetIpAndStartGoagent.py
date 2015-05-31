@@ -1,14 +1,14 @@
- # -*- coding: gbk -*-       <--------------é‡‡ç”¨gbk
+ # -*- coding: gbk -*-       <--------------²ÉÓÃgbk
 import io,sys,os,urllib2,shutil
-# å…¨å±€å˜é‡
+# È«¾Ö±äÁ¿
 GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
-ISP_TYPE_DIANXIN = 'ç”µä¿¡'
-IPS_TYPE_TIETONG = 'é“é€š'
-# ç”µä¿¡å¯ç”¨ipæ–‡ä»¶
+ISP_TYPE_DIANXIN = 'µçÐÅ'
+IPS_TYPE_TIETONG = 'ÌúÍ¨'
+# µçÐÅ¿ÉÓÃipÎÄ¼þ
 GITHUB_DIANXIN_RAW_FILE = 'https://raw.githubusercontent.com/out0fmemory/GoAgent-Always-Available/master/%E7%94%B5%E4%BF%A1%E5%AE%BD%E5%B8%A6%E9%AB%98%E7%A8%B3%E5%AE%9A%E6%80%A7Ip.txt'
-# é“é€šå¯ç”¨ipæ–‡ä»¶
+# ÌúÍ¨¿ÉÓÃipÎÄ¼þ
 GITHUB_TIETONG_RAW_FILE = 'https://raw.githubusercontent.com/out0fmemory/GoAgent-Always-Available/master/%E9%93%81%E9%80%9A%E5%AE%BD%E5%B8%A6%E9%AB%98%E7%A8%B3%E5%AE%9A%E6%80%A7Ip.txt'
-# ç½‘ç»œè¯·æ±‚é‡è¯•æ¬¡æ•°
+# ÍøÂçÇëÇóÖØÊÔ´ÎÊý
 NET_RETRY_CNT = 3
 PROXY_PROP = 'proxy.ini'
 PROXY_PROP_BACKUP = 'proxy.bak'
@@ -19,7 +19,7 @@ HOSTS_TAG = 'hosts = '
 SEPIRATOR_TAG = '|'
 GOAGENT_EXE_FILE = 'goagent.exe'
 	
-# èŽ·å–è¿è¥å•†ç±»åž‹	
+# »ñÈ¡ÔËÓªÉÌÀàÐÍ	
 def getIpType():
 	try:
 		getIpurl = GET_ISP_TYPE_URL
@@ -27,35 +27,35 @@ def getIpType():
 		Ipdata = fd.read()
 		ispType = ISP_TYPE_DIANXIN
 		if IPS_TYPE_TIETONG in Ipdata:
-			print "è¿è¥å•†ä¸º" + IPS_TYPE_TIETONG
+			print "ÔËÓªÉÌÎª" + IPS_TYPE_TIETONG
 			ispType = IPS_TYPE_TIETONG
 		elif ISP_TYPE_DIANXIN in Ipdata:
-			print "è¿è¥å•†ä¸º" + ISP_TYPE_DIANXIN
+			print "ÔËÓªÉÌÎª" + ISP_TYPE_DIANXIN
 		else :
-			print "è¿è¥å•†ä¸ºå…¶ä»–ï¼Œé»˜è®¤ä½¿ç”¨ç”µä¿¡"
+			print "ÔËÓªÉÌÎªÆäËû£¬Ä¬ÈÏÊ¹ÓÃµçÐÅ"
 		return ispType
 	except Exception, e:
 		return None
 
-# èŽ·å–githubä¸Šå¯ç”¨ipåœ°å€	
+# »ñÈ¡githubÉÏ¿ÉÓÃipµØÖ·	
 def getAvailableGoagentIp(ispType):
 	try:
-		# ä¸‹è½½githubä¸Šçš„ipåœ°å€æ–‡ä»¶
-		print "ä¸‹è½½githubä¸Šçš„å¯ç”¨ip"
+		# ÏÂÔØgithubÉÏµÄipµØÖ·ÎÄ¼þ
+		print "ÏÂÔØgithubÉÏµÄ¿ÉÓÃip"
 		url = GITHUB_DIANXIN_RAW_FILE
 		if ispType == IPS_TYPE_TIETONG:
 			url = GITHUB_TIETONG_RAW_FILE
 		fd = urllib2.urlopen(url)
 		content = fd.read()
-		print 'å¯ç”¨ipåˆ—è¡¨ï¼š' + content
+		print '¿ÉÓÃipÁÐ±í£º' + content
 		return content
 	except Exception, e:
 		return None
 
 def localFileReplace(ipList):
-	# å…ˆå¤‡ä»½é…ç½®æ–‡ä»¶
+	# ÏÈ±¸·ÝÅäÖÃÎÄ¼þ
 	shutil.copy(PROXY_PROP, PROXY_PROP_BACKUP)
-	# æŸ¥æ‰¾å¹¶æ›¿æ¢é…ç½®æ–‡ä»¶
+	# ²éÕÒ²¢Ìæ»»ÅäÖÃÎÄ¼þ
 	isInHostCn = 0
 	isInHostHk = 0
 	inFile = open(PROXY_PROP,"r")
@@ -69,12 +69,12 @@ def localFileReplace(ipList):
 			isInHostHk = 1
 		if isInHostCn == 1:
 			if HOSTS_TAG in line and SEPIRATOR_TAG in line:
-				print "æ›¿æ¢å‰ " + GOOGLE_CN_TAG + line
+				print "Ìæ»»Ç° " + GOOGLE_CN_TAG + line
 				isInHostCn = 0
 				line = HOSTS_TAG + ipList + '\n'
 		elif isInHostHk == 1:
 			if HOSTS_TAG in line and SEPIRATOR_TAG in line:
-				print "æ›¿æ¢å‰ " + GOOGLE_HK_TAG + line
+				print "Ìæ»»Ç° " + GOOGLE_HK_TAG + line
 				isInHostHk = 0
 				line = HOSTS_TAG  + ipList + '\n'
 		out.write(line)
@@ -83,7 +83,7 @@ def localFileReplace(ipList):
 	out.flush()
 	out.close()
 	shutil.copy(PROXY_PROP_TEM, PROXY_PROP)	
-# æ€»è°ƒ	
+# ×Üµ÷	
 def startGoagentWithIpAutoGet():
 	i = 0
 	ispType = None
@@ -98,10 +98,10 @@ def startGoagentWithIpAutoGet():
 		ipList = getAvailableGoagentIp(ispType)
 		i = i + 1
 	if ipList == None:
-		print 'èŽ·å–githubä¸Šçš„å¯ç”¨ipå¤±è´¥'
+		print '»ñÈ¡githubÉÏµÄ¿ÉÓÃipÊ§°Ü'
 		return
 	localFileReplace(ipList)
-	#å¯åŠ¨goagent
+	#Æô¶¯goagent
 	os.startfile(GOAGENT_EXE_FILE)
 if __name__=="__main__": 
 	startGoagentWithIpAutoGet()
