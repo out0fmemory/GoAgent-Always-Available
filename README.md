@@ -1,3 +1,5 @@
+# 自动下载、替换ip、启动脚本
+新增自动替换最新ip地址然后启动goagent脚本AutoGetIpAndStartGoagent.py，初版，大家有问题及时反馈>_<
 # GoAgent-Always-available
 一直可用的GoAgent，会定时扫描可用的google gae ip，goagent会保持更新
 
