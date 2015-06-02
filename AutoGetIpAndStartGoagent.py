@@ -1,7 +1,9 @@
  # -*- coding: gbk -*-       <--------------采用gbk
 import io,sys,os,urllib2,shutil
 # 全局变量
-GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
+# 淘宝的接口是动态网页，不满足需求，改用chinaz
+#GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
+GET_ISP_TYPE_URL = 'http://ip.chinaz.com/'
 ISP_TYPE_DIANXIN = '电信'
 IPS_TYPE_TIETONG = '铁通'
 # 电信可用ip文件
@@ -25,6 +27,7 @@ def getIpType():
 		getIpurl = GET_ISP_TYPE_URL
 		fd = urllib2.urlopen(getIpurl)
 		Ipdata = fd.read()
+		Ipdata = Ipdata.decode('utf-8').encode('gbk')
 		ispType = ISP_TYPE_DIANXIN
 		if IPS_TYPE_TIETONG in Ipdata:
 			print "运营商为" + IPS_TYPE_TIETONG
