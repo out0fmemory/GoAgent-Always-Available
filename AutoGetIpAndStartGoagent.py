@@ -15,10 +15,10 @@ NET_RETRY_CNT = 3
 PROXY_PROP = 'proxy.ini'
 PROXY_PROP_BACKUP = 'proxy.bak'
 PROXY_PROP_TEM = 'proxy.tem'
-GOOGLE_CN_TAG = 'google_cn'
-GOOGLE_HK_TAG = 'google_hk'
+GOOGLE_CN_TAG = '[google_cn]'
+GOOGLE_HK_TAG = '[google_hk]'
 HOSTS_TAG = 'hosts = '
-SEPIRATOR_TAG = '|'
+SEPIRATOR_TAG = '.'
 GOAGENT_EXE_FILE = 'goagent.exe'
 	
 # 获取运营商类型	
