@@ -1,3 +1,5 @@
+# 非常重要（15.09.04）
+你懂得，最近所有方法都扫不出可用谷歌ip了，连goagent原始项目作者都迫于压力删除项目了，我们需要其他方法了，any 想法可以发issuse
 # 自动下载、替换ip、启动脚本
 新增自动替换最新ip地址然后启动goagent脚本AutoGetIpAndStartGoagent.py，初版，大家有问题及时反馈>_< 使用时放入此文件到local目录，使用此文件作为启动入口即可
 # GoAgent-Always-available
