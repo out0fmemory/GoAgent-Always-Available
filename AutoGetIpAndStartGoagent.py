@@ -3,13 +3,18 @@ import io,sys,os,urllib2,shutil
 # 全局变量
 # 淘宝的接口是动态网页，不满足需求，改用chinaz
 #GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
-GET_ISP_TYPE_URL = 'http://ip.chinaz.com/'
+#GET_ISP_TYPE_URL = 'http://ip.chinaz.com/'
+GET_ISP_TYPE_URL = 'http://ip.chinaz.com/getip.aspx'
 ISP_TYPE_DIANXIN = '电信'
 IPS_TYPE_TIETONG = '铁通'
 # 电信可用ip文件
 GITHUB_DIANXIN_RAW_FILE = 'https://raw.githubusercontent.com/out0fmemory/GoAgent-Always-Available/master/%E7%94%B5%E4%BF%A1%E5%AE%BD%E5%B8%A6%E9%AB%98%E7%A8%B3%E5%AE%9A%E6%80%A7Ip.txt'
+BACKUP_SITE_DIANXIN_RAW_FILE = 'http://yanke.info/ip/dianxin_ip.txt'
+
 # 铁通可用ip文件
 GITHUB_TIETONG_RAW_FILE = 'https://raw.githubusercontent.com/out0fmemory/GoAgent-Always-Available/master/%E9%93%81%E9%80%9A%E5%AE%BD%E5%B8%A6%E9%AB%98%E7%A8%B3%E5%AE%9A%E6%80%A7Ip.txt'
+BACKUP_SITE_TIETONG_RAW_FILE = 'http://yanke.info/ip/tietong_ip.txt'
+
 # 网络请求重试次数
 NET_RETRY_CNT = 3
 PROXY_PROP = 'proxy.ini'
@@ -48,12 +53,27 @@ def getAvailableGoagentIp(ispType):
 		url = GITHUB_DIANXIN_RAW_FILE
 		if ispType == IPS_TYPE_TIETONG:
 			url = GITHUB_TIETONG_RAW_FILE
-		fd = urllib2.urlopen(url)
+		fd = urllib2.urlopen(url,timeout=5)
 		content = fd.read()
 		print '可用ip列表：' + content
 		return content
 	except Exception, e:
 		return None
+
+def getAvailableGoagentIpWithBackupSite(ispType):
+	try:
+		# 下载yanke.info上的ip地址文件
+		print "下载yanke.info上的可用ip"
+		url = BACKUP_SITE_DIANXIN_RAW_FILE
+		if ispType == IPS_TYPE_TIETONG:
+			url = BACKUP_SITE_TIETONG_RAW_FILE
+		fd = urllib2.urlopen(url,timeout=10)
+		content = fd.read()
+		print '可用ip列表：' + content
+		return content
+	except Exception, e:
+		return None
+
 
 def localFileReplace(ipList):
 	# 先备份配置文件
@@ -99,9 +119,11 @@ def startGoagentWithIpAutoGet():
 	ipList = None
 	while i < NET_RETRY_CNT and ipList == None:
 		ipList = getAvailableGoagentIp(ispType)
+		if ipList == None:
+			ipList = getAvailableGoagentIpWithBackupSite(ispType)
 		i = i + 1
 	if ipList == None:
-		print '获取github上的可用ip失败'
+		print '获取可用ip失败'
 		return
 	localFileReplace(ipList)
 	#启动goagent
