@@ -1,5 +1,5 @@
  # -*- coding: gbk -*-       <--------------采用gbk
-import io,sys,os,urllib2,shutil
+import io,sys,os,urllib2,shutil,time
 # 全局变量
 # 淘宝的接口是动态网页，不满足需求，改用chinaz
 #GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
@@ -106,6 +106,41 @@ def localFileReplace(ipList):
 	out.flush()
 	out.close()
 	shutil.copy(PROXY_PROP_TEM, PROXY_PROP)	
+# 通过gscan获取可用ip
+def gscanIp():
+	#os.chdir(exe_path)
+	os.system('cd gscan && gscan.exe -iprange="./my.conf"')
+	fp = open('gscan\google_ip.txt','r')
+	content = fp.readline()
+   	fp.close
+   	return content
+# 获取文件修改时间
+def getFileModifyTime():
+	t = time.ctime(os.path.getmtime("e:/MQDwO"))#time.ctime(os.stat("e:/MQDwO").st_mtime) #文件的修改时间
+	print t
+	return 
+# 获取第一次启动ip
+def getFirstStartUpIp():
+	return getAvailableIp()
+# 获取已经扫描好的上传到github以及备用服务器的ip列表
+def getAvailableIp():
+	i = 0
+	ispType = None
+	while i < NET_RETRY_CNT and ispType == None:
+		ispType = getIpType()
+		i = i + 1
+	if ispType == None:
+		ispType = ISP_TYPE_DIANXIN
+	i = 0
+	ipList = None
+	while i < NET_RETRY_CNT and ipList == None:
+		ipList = getAvailableGoagentIp(ispType)
+		if ipList == None:
+			ipList = getAvailableGoagentIpWithBackupSite(ispType)
+		i = i + 1
+	if ipList == None:
+		print '获取可用ip失败'
+	return ipList
 # 总调	
 def startGoagentWithIpAutoGet():
 	i = 0
@@ -125,7 +160,12 @@ def startGoagentWithIpAutoGet():
 	if ipList == None:
 		print '获取可用ip失败'
 		return
-	localFileReplace(ipList)
+	#localFileReplace(ipList)
+	getFileModifyTime()
+	localetime = time.localtime()
+	print localetime
+	ips = gscanIp()
+	print ips
 	#启动goagent
 	os.startfile(GOAGENT_EXE_FILE)
 if __name__=="__main__": 
