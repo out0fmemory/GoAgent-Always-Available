@@ -16,5 +16,5 @@
 
 # 工具引用
 扫描工具引用自 https://github.com/moonshawdo/checkgoogleip ，thx.  
-谷歌ip地址库引用自 https://github.com/out0fmemory/GoogleIPRange， thx.
+谷歌ip地址库引用自 https://github.com/out0fmemory/GoogleIPRange， thx.  
 扫描工具gscan 引用自https://github.com/yinqiwen/gscan，thx.
