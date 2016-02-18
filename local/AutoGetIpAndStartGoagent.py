@@ -25,7 +25,11 @@ GOOGLE_HK_TAG = '[google_hk]'
 HOSTS_TAG = 'hosts = '
 SEPIRATOR_TAG = '.'
 GOAGENT_EXE_FILE = 'goagent.exe'
-	
+
+# 从网络获取到的数据文件
+NET_GSCAN_FILE = 'net_gsan_ip.txt'
+GET_NET_IP_LIST_SEP = 60*60*10
+
 # 获取运营商类型	
 def getIpType():
 	try:
@@ -115,13 +119,37 @@ def gscanIp():
    	fp.close
    	return content
 # 获取文件修改时间
-def getFileModifyTime():
-	t = time.ctime(os.path.getmtime("e:/MQDwO"))#time.ctime(os.stat("e:/MQDwO").st_mtime) #文件的修改时间
-	print t
-	return 
+def getFileModifyTime(path):
+	if path != None:
+		ft = os.stat(path)
+		return  ft.st_mtime
+	return time.time()
 # 获取第一次启动ip
 def getFirstStartUpIp():
-	return getAvailableIp()
+	if os.path.exists(NET_GSCAN_FILE) and time.time() - getFileModifyTime(NET_GSCAN_FILE) < GET_NET_IP_LIST_SEP:
+		print 'use local ip_file because time short'
+		fileIp = readIpFromFile(NET_GSCAN_FILE)
+		if fileIp != None and len(fileIp) > 0:
+			return fileIp
+	print 'real get net ip_file'
+	content = getAvailableIp()
+	# 保存下载到的数据
+	saveIpToFile(content, NET_GSCAN_FILE)
+	return content
+def saveIpToFile(content, path):
+	if content != None:
+		file = open(path,"w+")
+		file.write(content)
+		file.flush()
+		file.close
+def readIpFromFile(path):
+	if path != None:
+		file = open(path)
+		content = file.readline()
+		file.close
+		return content
+	return None
+
 # 获取已经扫描好的上传到github以及备用服务器的ip列表
 def getAvailableIp():
 	i = 0
@@ -160,12 +188,7 @@ def startGoagentWithIpAutoGet():
 	if ipList == None:
 		print '获取可用ip失败'
 		return
-	#localFileReplace(ipList)
-	getFileModifyTime()
-	localetime = time.localtime()
-	print localetime
-	ips = gscanIp()
-	print ips
+	localFileReplace(ipList)
 	#启动goagent
 	os.startfile(GOAGENT_EXE_FILE)
 if __name__=="__main__": 
