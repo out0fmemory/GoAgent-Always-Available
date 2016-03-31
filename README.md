@@ -14,6 +14,9 @@
 4、若你想自己扫描  
 直接下载源码解压后使用gsan目录的工具即可扫描了
 
+5、若只是想访问谷歌
+直接访问我的镜像也可以，http://www.fq.yanke.info/
+
 # 工具引用
 扫描工具引用自 https://github.com/moonshawdo/checkgoogleip ，thx.  
 谷歌ip地址库引用自 https://github.com/out0fmemory/GoogleIPRange ， thx.  
