@@ -1,21 +1,24 @@
- # -*- coding: gbk -*-       <--------------²ÉÓÃgbk
+ # -*- coding: utf-8 -*-       <--------------é‡‡ç”¨utf-8
 import io,sys,os,urllib2,shutil,time
-# È«¾Ö±äÁ¿
-# ÌÔ±¦µÄ½Ó¿ÚÊÇ¶¯Ì¬ÍøÒ³£¬²»Âú×ãÐèÇó£¬¸ÄÓÃchinaz
+# å…¨å±€å˜é‡
+# æ·˜å®çš„æŽ¥å£æ˜¯åŠ¨æ€ç½‘é¡µï¼Œä¸æ»¡è¶³éœ€æ±‚ï¼Œæ”¹ç”¨chinaz
 #GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
 #GET_ISP_TYPE_URL = 'http://ip.chinaz.com/'
-GET_ISP_TYPE_URL = 'http://ip.chinaz.com/getip.aspx'
-ISP_TYPE_DIANXIN = 'µçÐÅ'
-IPS_TYPE_TIETONG = 'ÌúÍ¨'
-# µçÐÅ¿ÉÓÃipÎÄ¼þ
+#ç«™é•¿ä¹‹å®¶æŠ½é£Žï¼Œæš‚æ—¶æ­¤åœ°å€ä¸å¯ç”¨äº†
+#GET_ISP_TYPE_URL = 'http://ip.chinaz.com/getip.aspx'
+GET_ISP_TYPE_URL = 'http://www.123cha.com/ip/'
+ISP_TYPE_DIANXIN = unicode('ç”µä¿¡', "utf-8")
+IPS_TYPE_TIETONG = unicode('é“é€š', "utf-8")
+
+# ç”µä¿¡å¯ç”¨ipæ–‡ä»¶
 GITHUB_DIANXIN_RAW_FILE = 'https://raw.githubusercontent.com/out0fmemory/GoAgent-Always-Available/master/%E7%94%B5%E4%BF%A1%E5%AE%BD%E5%B8%A6%E9%AB%98%E7%A8%B3%E5%AE%9A%E6%80%A7Ip.txt'
 BACKUP_SITE_DIANXIN_RAW_FILE = 'http://yanke.info/ip/dianxin_ip.txt'
 
-# ÌúÍ¨¿ÉÓÃipÎÄ¼þ
+# é“é€šå¯ç”¨ipæ–‡ä»¶
 GITHUB_TIETONG_RAW_FILE = 'https://raw.githubusercontent.com/out0fmemory/GoAgent-Always-Available/master/%E9%93%81%E9%80%9A%E5%AE%BD%E5%B8%A6%E9%AB%98%E7%A8%B3%E5%AE%9A%E6%80%A7Ip.txt'
 BACKUP_SITE_TIETONG_RAW_FILE = 'http://yanke.info/ip/tietong_ip.txt'
 
-# ÍøÂçÇëÇóÖØÊÔ´ÎÊý
+# ç½‘ç»œè¯·æ±‚é‡è¯•æ¬¡æ•°
 NET_RETRY_CNT = 3
 PROXY_PROP = 'proxy.ini'
 PROXY_PROP_BACKUP = 'proxy.bak'
@@ -26,63 +29,64 @@ HOSTS_TAG = 'hosts = '
 SEPIRATOR_TAG = '.'
 GOAGENT_EXE_FILE = 'goagent.exe'
 
-# ´ÓÍøÂç»ñÈ¡µ½µÄÊý¾ÝÎÄ¼þ
+# ä»Žç½‘ç»œèŽ·å–åˆ°çš„æ•°æ®æ–‡ä»¶
 NET_GSCAN_FILE = 'net_gsan_ip.txt'
 GET_NET_IP_LIST_SEP = 60*60*10
 
-# »ñÈ¡ÔËÓªÉÌÀàÐÍ	
+# èŽ·å–è¿è¥å•†ç±»åž‹	
 def getIpType():
 	try:
 		getIpurl = GET_ISP_TYPE_URL
-		fd = urllib2.urlopen(getIpurl)
+		fd = urllib2.urlopen(getIpurl,timeout=5)
 		Ipdata = fd.read()
-		Ipdata = Ipdata.decode('utf-8').encode('gbk')
+		#Ipdata = Ipdata.decode('utf-8').encode('gbk')
 		ispType = ISP_TYPE_DIANXIN
 		if IPS_TYPE_TIETONG in Ipdata:
-			print "ÔËÓªÉÌÎª" + IPS_TYPE_TIETONG
+			print "The Isp is TieTong"
 			ispType = IPS_TYPE_TIETONG
 		elif ISP_TYPE_DIANXIN in Ipdata:
-			print "ÔËÓªÉÌÎª" + ISP_TYPE_DIANXIN
+			print "The Isp is DianXin"
 		else :
-			print "ÔËÓªÉÌÎªÆäËû£¬Ä¬ÈÏÊ¹ÓÃµçÐÅ"
+			print "The Isp is Others, use The Default DianXin Ips"
 		return ispType
 	except Exception, e:
+		print "The Isp is Others, use The Default DianXin Ips"
 		return None
 
-# »ñÈ¡githubÉÏ¿ÉÓÃipµØÖ·	
+# èŽ·å–githubä¸Šå¯ç”¨ipåœ°å€	
 def getAvailableGoagentIp(ispType):
 	try:
-		# ÏÂÔØgithubÉÏµÄipµØÖ·ÎÄ¼þ
-		print "ÏÂÔØgithubÉÏµÄ¿ÉÓÃip"
+		# ä¸‹è½½githubä¸Šçš„ipåœ°å€æ–‡ä»¶
+		print "down Available Ip list from Github"
 		url = GITHUB_DIANXIN_RAW_FILE
 		if ispType == IPS_TYPE_TIETONG:
 			url = GITHUB_TIETONG_RAW_FILE
 		fd = urllib2.urlopen(url,timeout=5)
 		content = fd.read()
-		print '¿ÉÓÃipÁÐ±í£º' + content
+		print 'Now Available Ip list:' + content
 		return content
 	except Exception, e:
 		return None
 
 def getAvailableGoagentIpWithBackupSite(ispType):
 	try:
-		# ÏÂÔØyanke.infoÉÏµÄipµØÖ·ÎÄ¼þ
-		print "ÏÂÔØyanke.infoÉÏµÄ¿ÉÓÃip"
+		# ä¸‹è½½yanke.infoä¸Šçš„ipåœ°å€æ–‡ä»¶
+		print "down Available Ip list from yanke.info"
 		url = BACKUP_SITE_DIANXIN_RAW_FILE
 		if ispType == IPS_TYPE_TIETONG:
 			url = BACKUP_SITE_TIETONG_RAW_FILE
 		fd = urllib2.urlopen(url,timeout=10)
 		content = fd.read()
-		print '¿ÉÓÃipÁÐ±í£º' + content
+		print 'Now Available Ip list:' + content
 		return content
 	except Exception, e:
 		return None
 
 
 def localFileReplace(ipList):
-	# ÏÈ±¸·ÝÅäÖÃÎÄ¼þ
+	# å…ˆå¤‡ä»½é…ç½®æ–‡ä»¶
 	shutil.copy(PROXY_PROP, PROXY_PROP_BACKUP)
-	# ²éÕÒ²¢Ìæ»»ÅäÖÃÎÄ¼þ
+	# æŸ¥æ‰¾å¹¶æ›¿æ¢é…ç½®æ–‡ä»¶
 	isInHostCn = 0
 	isInHostHk = 0
 	inFile = open(PROXY_PROP,"r")
@@ -96,12 +100,12 @@ def localFileReplace(ipList):
 			isInHostHk = 1
 		if isInHostCn == 1:
 			if HOSTS_TAG in line and SEPIRATOR_TAG in line:
-				print "Ìæ»»Ç° " + GOOGLE_CN_TAG + line
+				print "before replace " + GOOGLE_CN_TAG + line
 				isInHostCn = 0
 				line = HOSTS_TAG + ipList + '\n'
 		elif isInHostHk == 1:
 			if HOSTS_TAG in line and SEPIRATOR_TAG in line:
-				print "Ìæ»»Ç° " + GOOGLE_HK_TAG + line
+				print "before replace " + GOOGLE_HK_TAG + line
 				isInHostHk = 0
 				line = HOSTS_TAG  + ipList + '\n'
 		out.write(line)
@@ -110,7 +114,7 @@ def localFileReplace(ipList):
 	out.flush()
 	out.close()
 	shutil.copy(PROXY_PROP_TEM, PROXY_PROP)	
-# Í¨¹ýgscan»ñÈ¡¿ÉÓÃip
+# é€šè¿‡gscanèŽ·å–å¯ç”¨ip
 def gscanIp():
 	#os.chdir(exe_path)
 	os.system('cd gscan && gscan.exe -iprange="./my.conf"')
@@ -118,13 +122,13 @@ def gscanIp():
 	content = fp.readline()
    	fp.close
    	return content
-# »ñÈ¡ÎÄ¼þÐÞ¸ÄÊ±¼ä
+# èŽ·å–æ–‡ä»¶ä¿®æ”¹æ—¶é—´
 def getFileModifyTime(path):
 	if path != None:
 		ft = os.stat(path)
 		return  ft.st_mtime
 	return time.time()
-# »ñÈ¡µÚÒ»´ÎÆô¶¯ip
+# èŽ·å–ç¬¬ä¸€æ¬¡å¯åŠ¨ip
 def getFirstStartUpIp():
 	if os.path.exists(NET_GSCAN_FILE) and time.time() - getFileModifyTime(NET_GSCAN_FILE) < GET_NET_IP_LIST_SEP:
 		print 'use local ip_file because time short'
@@ -133,7 +137,7 @@ def getFirstStartUpIp():
 			return fileIp
 	print 'real get net ip_file'
 	content = getAvailableIp()
-	# ±£´æÏÂÔØµ½µÄÊý¾Ý
+	# ä¿å­˜ä¸‹è½½åˆ°çš„æ•°æ®
 	saveIpToFile(content, NET_GSCAN_FILE)
 	return content
 def saveIpToFile(content, path):
@@ -150,7 +154,7 @@ def readIpFromFile(path):
 		return content
 	return None
 
-# »ñÈ¡ÒÑ¾­É¨ÃèºÃµÄÉÏ´«µ½githubÒÔ¼°±¸ÓÃ·þÎñÆ÷µÄipÁÐ±í
+# èŽ·å–å·²ç»æ‰«æå¥½çš„ä¸Šä¼ åˆ°githubä»¥åŠå¤‡ç”¨æœåŠ¡å™¨çš„ipåˆ—è¡¨
 def getAvailableIp():
 	i = 0
 	ispType = None
@@ -167,9 +171,9 @@ def getAvailableIp():
 			ipList = getAvailableGoagentIpWithBackupSite(ispType)
 		i = i + 1
 	if ipList == None:
-		print '»ñÈ¡¿ÉÓÃipÊ§°Ü'
+		print 'get available Ip list fail'
 	return ipList
-# ×Üµ÷	
+# æ€»è°ƒ	
 def startGoagentWithIpAutoGet():
 	i = 0
 	ispType = None
@@ -186,10 +190,10 @@ def startGoagentWithIpAutoGet():
 			ipList = getAvailableGoagentIpWithBackupSite(ispType)
 		i = i + 1
 	if ipList == None:
-		print '»ñÈ¡¿ÉÓÃipÊ§°Ü'
+		print 'get available Ip list fail'
 		return
 	localFileReplace(ipList)
-	#Æô¶¯goagent
+	#å¯åŠ¨goagent
 	os.startfile(GOAGENT_EXE_FILE)
 if __name__=="__main__": 
 	startGoagentWithIpAutoGet()
