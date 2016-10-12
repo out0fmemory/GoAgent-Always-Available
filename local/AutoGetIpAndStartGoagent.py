@@ -138,7 +138,12 @@ def getFirstStartUpIp():
 	print 'real get net ip_file'
 	content = getAvailableIp()
 	# 保存下载到的数据
-	saveIpToFile(content, NET_GSCAN_FILE)
+	if content != None:
+		print 'get net ip success, now save to files'
+		saveIpToFile(content, NET_GSCAN_FILE)
+	else:
+		print 'get net ip fail, try to use the old file!'
+		return readIpFromFile(NET_GSCAN_FILE)
 	return content
 def saveIpToFile(content, path):
 	if content != None:
