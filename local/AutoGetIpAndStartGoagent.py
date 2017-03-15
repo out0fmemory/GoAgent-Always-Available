@@ -5,10 +5,11 @@ import io,sys,os,urllib2,shutil,time
 #GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
 #GET_ISP_TYPE_URL = 'http://ip.chinaz.com/'
 #站长之家抽风，暂时此地址不可用了
-#GET_ISP_TYPE_URL = 'http://ip.chinaz.com/getip.aspx'
-GET_ISP_TYPE_URL = 'http://www.123cha.com/ip/'
+GET_ISP_TYPE_URL = 'http://ip.chinaz.com/getip.aspx'
+#GET_ISP_TYPE_URL = 'http://www.123cha.com/ip/'
 ISP_TYPE_DIANXIN = unicode('电信', "utf-8")
 IPS_TYPE_TIETONG = unicode('铁通', "utf-8")
+IPS_TYPE_YIDONG = unicode('移动', "utf-8")
 
 # 电信可用ip文件
 GITHUB_DIANXIN_RAW_FILE = 'https://raw.githubusercontent.com/out0fmemory/GoAgent-Always-Available/master/%E7%94%B5%E4%BF%A1%E5%AE%BD%E5%B8%A6%E9%AB%98%E7%A8%B3%E5%AE%9A%E6%80%A7Ip.txt'
@@ -39,15 +40,20 @@ def getIpType():
 		getIpurl = GET_ISP_TYPE_URL
 		fd = urllib2.urlopen(getIpurl,timeout=5)
 		Ipdata = fd.read()
+		#print Ipdata
 		#Ipdata = Ipdata.decode('utf-8').encode('gbk')
 		ispType = ISP_TYPE_DIANXIN
 		if IPS_TYPE_TIETONG in Ipdata:
 			print "The Isp is TieTong"
 			ispType = IPS_TYPE_TIETONG
+		elif IPS_TYPE_YIDONG in Ipdata:
+			print "The Isp is YiDong, use The TieTong Ips"
+			ispType = IPS_TYPE_TIETONG
 		elif ISP_TYPE_DIANXIN in Ipdata:
 			print "The Isp is DianXin"
 		else :
 			print "The Isp is Others, use The Default DianXin Ips"
+		fd.close()
 		return ispType
 	except Exception, e:
 		print "The Isp is Others, use The Default DianXin Ips"
@@ -64,6 +70,7 @@ def getAvailableGoagentIp(ispType):
 		fd = urllib2.urlopen(url,timeout=5)
 		content = fd.read()
 		print 'Now Available Ip list:' + content
+		fd.close()
 		return content
 	except Exception, e:
 		return None
@@ -78,6 +85,7 @@ def getAvailableGoagentIpWithBackupSite(ispType):
 		fd = urllib2.urlopen(url,timeout=10)
 		content = fd.read()
 		print 'Now Available Ip list:' + content
+		fd.close()
 		return content
 	except Exception, e:
 		return None
