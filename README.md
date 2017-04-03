@@ -17,7 +17,7 @@
 直接下载源码，解压后使用gsan目录的工具即可扫描了，已经内置了可用ip列表大约1.6w ip
 
 5、若只是想访问谷歌
-直接访问我的镜像也可以，http://www.fq.yanke.info/
+直接访问我的镜像也可以，https://fq.yanke.info/
 
 # 工具引用
 扫描工具引用自 https://github.com/moonshawdo/checkgoogleip ，thx.  
