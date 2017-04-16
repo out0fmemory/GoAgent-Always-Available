@@ -5,7 +5,7 @@
 
 # 使用说明
 1、若你是新手  
-直接下载源码，解压后进入local文件夹，直接打开GoAgent.exe，开始全自动的翻墙吧，enjoys^_^
+直接下载源码，解压后进入local文件夹，Windows系统直接打开GoAgent.exe，Mac os或者Linux系统直接运行proxy.py，开始全自动的翻墙吧，enjoys^_^
 
 2、若你有自己的一套GoAgent以及布置好的服务端  
 根据自己的ip地址下载对应的线路稳定可用ip地址文件，将内容复制替换goagent proxy.ini中hosts节或者iplist段中相应ip地址即可
