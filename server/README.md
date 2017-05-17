@@ -1,4 +1,4 @@
-# 部署工具引用自https://github.com/XX-net/XX-Net/tree/master/code/default/gae_proxy/server thx！
+## 部署工具引用自https://github.com/XX-net/XX-Net/tree/master/code/default/gae_proxy/server thx！
 # 部署工具使用方法
 ## Windows 用户
 1. 在资源管理器打开 server 目录(就是这个文件所在的文件夹)。
