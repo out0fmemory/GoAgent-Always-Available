@@ -1,8 +1,8 @@
 # GoAgent-Always-available
 一直可用的GoAgent，会定时扫描可用的google gae ip，goagent为2015年5月份左右的源码
 
-# 重要： 由于公共的local翻墙客户端使用了有限的APP id，会导致大家用的多了出现只能访问谷歌，不能访问其他网址的问题，请自行更换成自己的 APPID！！
-# 重要： 关于最新版本chrome（chrome58）提示“不是私密连接问题”，可以参考http://yanke.info/?id=57
+## 重要： 由于公共的local翻墙客户端使用了有限的APP id，会导致大家用的多了出现只能访问谷歌，不能访问其他网址的问题，请自行更换成自己的 APPID！！
+## 重要： 关于最新版本chrome（chrome58）提示“不是私密连接问题”，可以参考http://yanke.info/?id=57
 # 使用说明
 1、若你是新手  
 直接下载源码，解压后进入local文件夹，Windows系统直接打开GoAgent.exe，Mac os或者Linux系统直接运行proxy.py，开始全自动的翻墙吧，enjoys^_^
@@ -21,5 +21,6 @@
 
 # 工具引用
 扫描工具引用自 https://github.com/moonshawdo/checkgoogleip ，thx.  
-谷歌ip地址库引用自 https://github.com/out0fmemory/GoogleIPRange ， thx.  
+谷歌ip地址库引用自 https://github.com/peqing/GoogleIPRange ， thx.  
 扫描工具gscan 引用自https://github.com/yinqiwen/gscan ，thx.
+部署工具引用自XX-NET https://github.com/XX-net/XX-Net/tree/master/code/default/gae_proxy/server ， thx.
