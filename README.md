@@ -25,5 +25,5 @@
 # 工具引用
 扫描工具引用自 https://github.com/moonshawdo/checkgoogleip ，thx.  
 谷歌ip地址库引用自 https://github.com/peqing/GoogleIPRange ， thx.  
-扫描工具gscan 引用自https://github.com/yinqiwen/gscan ，thx.
+扫描工具gscan 引用自https://github.com/yinqiwen/gscan ，thx.  
 部署工具引用自XX-NET https://github.com/XX-net/XX-Net/tree/master/code/default/gae_proxy/server ， thx.
