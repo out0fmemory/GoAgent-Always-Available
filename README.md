@@ -1,5 +1,5 @@
 # GoAgent-Always-available
-一直可用的GoAgent，会定时扫描可用的google gae ip，goagent为2015年5月份左右的源码
+一直可用的GoAgent，会定时扫描可用的google gae ip，goagent为2015年5月份左右的源码 
 
 ## 重要： 由于公共的local翻墙客户端使用了有限的APP id，会导致大家用的多了出现只能访问谷歌，不能访问其他网址的问题，请自行更换成自己的 APPID！！
 ## 重要： 关于最新版本chrome（chrome58）提示“不是私密连接问题”，可以参考http://yanke.info/?id=57
