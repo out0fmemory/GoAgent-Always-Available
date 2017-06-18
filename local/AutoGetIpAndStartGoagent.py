@@ -1,12 +1,14 @@
- # -*- coding: utf-8 -*-       <--------------采用utf-8
-import io,sys,os,urllib2,shutil,time
+# -*- coding: utf-8 -*-       <--------------采用utf-8
+import io, sys, os, urllib2, shutil, time, subprocess, platform
+
 # 全局变量
 # 淘宝的接口是动态网页，不满足需求，改用chinaz
-#GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
-#GET_ISP_TYPE_URL = 'http://ip.chinaz.com/'
-#站长之家抽风，暂时此地址不可用了
+# GET_ISP_TYPE_URL = 'http://ip.taobao.com/ipSearch.php'
+# GET_ISP_TYPE_URL = 'http://ip.chinaz.com/'
+# 站长之家抽风，暂时此地址不可用了
+
 GET_ISP_TYPE_URL = 'http://ip.chinaz.com/getip.aspx'
-#GET_ISP_TYPE_URL = 'http://www.123cha.com/ip/'
+# GET_ISP_TYPE_URL = 'http://www.123cha.com/ip/'
 ISP_TYPE_DIANXIN = unicode('电信', "utf-8")
 IPS_TYPE_TIETONG = unicode('铁通', "utf-8")
 IPS_TYPE_YIDONG = unicode('移动', "utf-8")
@@ -32,181 +34,269 @@ GOAGENT_EXE_FILE = 'goagent.exe'
 
 # 从网络获取到的数据文件
 NET_GSCAN_FILE = 'net_gsan_ip.txt'
-GET_NET_IP_LIST_SEP = 60*60*10
+GET_NET_IP_LIST_SEP = 60 * 60 * 10
 
-# 获取运营商类型	
+
+# 获取运营商类型
 def getIpType():
-	try:
-		getIpurl = GET_ISP_TYPE_URL
-		fd = urllib2.urlopen(getIpurl,timeout=5)
-		Ipdata = fd.read()
-		#print Ipdata
-		#Ipdata = Ipdata.decode('utf-8').encode('gbk')
-		ispType = ISP_TYPE_DIANXIN
-		if IPS_TYPE_TIETONG in Ipdata:
-			print "The Isp is TieTong"
-			ispType = IPS_TYPE_TIETONG
-		elif IPS_TYPE_YIDONG in Ipdata:
-			print "The Isp is YiDong, use The TieTong Ips"
-			ispType = IPS_TYPE_TIETONG
-		elif ISP_TYPE_DIANXIN in Ipdata:
-			print "The Isp is DianXin"
-		else :
-			print "The Isp is Others, use The Default DianXin Ips"
-		fd.close()
-		return ispType
-	except Exception, e:
-		print "The Isp is Others, use The Default DianXin Ips"
-		return None
+    try:
+        getIpurl = GET_ISP_TYPE_URL
+        fd = urllib2.urlopen(getIpurl, timeout=5)
+        Ipdata = fd.read()
+        # print Ipdata
+        # Ipdata = Ipdata.decode('utf-8').encode('gbk')
+        ispType = ISP_TYPE_DIANXIN
+        if IPS_TYPE_TIETONG in Ipdata:
+            print "The Isp is TieTong"
+            ispType = IPS_TYPE_TIETONG
+        elif IPS_TYPE_YIDONG in Ipdata:
+            print "The Isp is YiDong, use The TieTong Ips"
+            ispType = IPS_TYPE_TIETONG
+        elif ISP_TYPE_DIANXIN in Ipdata:
+            print "The Isp is DianXin"
+        else:
+            print "The Isp is Others, use The Default DianXin Ips"
+        fd.close()
+        return ispType
+    except Exception, e:
+        print "The Isp is Others, use The Default DianXin Ips"
+        return None
 
-# 获取github上可用ip地址	
+
+# 获取github上可用ip地址
 def getAvailableGoagentIp(ispType):
-	try:
-		# 下载github上的ip地址文件
-		print "down Available Ip list from Github"
-		url = GITHUB_DIANXIN_RAW_FILE
-		if ispType == IPS_TYPE_TIETONG:
-			url = GITHUB_TIETONG_RAW_FILE
-		fd = urllib2.urlopen(url,timeout=5)
-		content = fd.read()
-		print 'Now Available Ip list:' + content
-		fd.close()
-		return content
-	except Exception, e:
-		return None
+    try:
+        # 下载github上的ip地址文件
+        print "down Available Ip list from Github"
+        url = GITHUB_DIANXIN_RAW_FILE
+        if ispType == IPS_TYPE_TIETONG:
+            url = GITHUB_TIETONG_RAW_FILE
+        fd = urllib2.urlopen(url, timeout=5)
+        content = fd.read()
+        print 'Now Available Ip list:' + content
+        fd.close()
+        return content
+    except Exception, e:
+        return None
+
 
 def getAvailableGoagentIpWithBackupSite(ispType):
-	try:
-		# 下载yanke.info上的ip地址文件
-		print "down Available Ip list from yanke.info"
-		url = BACKUP_SITE_DIANXIN_RAW_FILE
-		if ispType == IPS_TYPE_TIETONG:
-			url = BACKUP_SITE_TIETONG_RAW_FILE
-		fd = urllib2.urlopen(url,timeout=10)
-		content = fd.read()
-		print 'Now Available Ip list:' + content
-		fd.close()
-		return content
-	except Exception, e:
-		return None
+    try:
+        # 下载yanke.info上的ip地址文件
+        print "down Available Ip list from yanke.info"
+        url = BACKUP_SITE_DIANXIN_RAW_FILE
+        if ispType == IPS_TYPE_TIETONG:
+            url = BACKUP_SITE_TIETONG_RAW_FILE
+        fd = urllib2.urlopen(url, timeout=10)
+        content = fd.read()
+        print 'Now Available Ip list:' + content
+        fd.close()
+        return content
+    except Exception, e:
+        return None
 
 
 def localFileReplace(ipList):
-	# 先备份配置文件
-	shutil.copy(PROXY_PROP, PROXY_PROP_BACKUP)
-	# 查找并替换配置文件
-	isInHostCn = 0
-	isInHostHk = 0
-	inFile = open(PROXY_PROP,"r")
-	out = open(PROXY_PROP_TEM,"w")
-	line = inFile.readline()
-	while line:
-		#print line
-		if line.find(GOOGLE_CN_TAG) != -1:
-			isInHostCn = 1
-		elif line.find(GOOGLE_HK_TAG) != -1:
-			isInHostHk = 1
-		if isInHostCn == 1:
-			if HOSTS_TAG in line and SEPIRATOR_TAG in line:
-				print "before replace " + GOOGLE_CN_TAG + line
-				isInHostCn = 0
-				line = HOSTS_TAG + ipList + '\n'
-		elif isInHostHk == 1:
-			if HOSTS_TAG in line and SEPIRATOR_TAG in line:
-				print "before replace " + GOOGLE_HK_TAG + line
-				isInHostHk = 0
-				line = HOSTS_TAG  + ipList + '\n'
-		out.write(line)
-		line = inFile.readline()
-	inFile.close()
-	out.flush()
-	out.close()
-	shutil.copy(PROXY_PROP_TEM, PROXY_PROP)	
+    # 先备份配置文件
+    shutil.copy(PROXY_PROP, PROXY_PROP_BACKUP)
+    # 查找并替换配置文件
+    isInHostCn = 0
+    isInHostHk = 0
+    inFile = open(PROXY_PROP, "r")
+    out = open(PROXY_PROP_TEM, "w")
+    line = inFile.readline()
+    while line:
+        # print line
+        if line.find(GOOGLE_CN_TAG) != -1:
+            isInHostCn = 1
+        elif line.find(GOOGLE_HK_TAG) != -1:
+            isInHostHk = 1
+        if isInHostCn == 1:
+            if HOSTS_TAG in line and SEPIRATOR_TAG in line:
+                print "before replace " + GOOGLE_CN_TAG + line
+                isInHostCn = 0
+                line = HOSTS_TAG + ipList + '\n'
+        elif isInHostHk == 1:
+            if HOSTS_TAG in line and SEPIRATOR_TAG in line:
+                print "before replace " + GOOGLE_HK_TAG + line
+                isInHostHk = 0
+                line = HOSTS_TAG + ipList + '\n'
+        out.write(line)
+        line = inFile.readline()
+    inFile.close()
+    out.flush()
+    out.close()
+    shutil.copy(PROXY_PROP_TEM, PROXY_PROP)
+
+
+def modifyGscanConf(confPath, confPathTem, findIpCnt):
+    fp = open(confPath, 'r')
+    lines = fp.readlines()
+    fp.close
+    fp = open(confPathTem, 'w')
+    for line in lines:
+        if 'RecordLimit' in line:
+            line = '"RecordLimit" :     ' + str(findIpCnt) + ','
+        fp.write(line)
+    fp.flush()
+    fp.close()
+
+def readGscanIp():
+    currentPath = os.path.split(os.path.realpath(__file__))[0]
+    googleIpPath = os.path.join(currentPath, "google_ip.txt")
+    # foreground get ip， we do not get ip every time
+
+    if os.path.exists(googleIpPath) and time.time() - getFileModifyTime(googleIpPath) < 60 * 3:
+        print 'use local ip_file because time short'
+        fileIp = readIpFromFile(googleIpPath)
+        if fileIp != None and len(fileIp) > 0:
+            return fileIp
+
+
 # 通过gscan获取可用ip
-def gscanIp():
-	#os.chdir(exe_path)
-	os.system('cd gscan && gscan.exe -iprange="./my.conf"')
-	fp = open('gscan\google_ip.txt','r')
-	content = fp.readline()
-   	fp.close
-   	return content
+def gscanIp(isNeedWait, findIpCnt):
+    currentPath = os.path.split(os.path.realpath(__file__))[0]
+    googleIpPath = os.path.join(currentPath, "google_ip.txt")
+    # foreground get ip， we do not get ip every time
+    if isNeedWait:
+        if os.path.exists(googleIpPath) and time.time() - getFileModifyTime(googleIpPath) < GET_NET_IP_LIST_SEP:
+            print 'use local ip_file because time short'
+            fileIp = readIpFromFile(googleIpPath)
+            print fileIp
+            if fileIp != None and len(fileIp) > 50:
+                return fileIp
+
+    gscanPath = os.path.join(currentPath, 'gscan')
+    gscanPath = os.path.join(gscanPath, 'bin')
+    osType = platform.system()
+    executeFile = 'gscan-win.exe'
+    if osType == 'Darwin':
+        executeFile = 'gscan-mac'
+    elif osType == 'Linux':
+        executeFile = 'gscan'
+    executePath = os.path.join(gscanPath, executeFile)
+    confPath = os.path.join(gscanPath, 'my.conf')
+    gscanConfPath = os.path.join(gscanPath, 'gscan.conf')
+    gscanConfPathTem = gscanConfPath + 'tem'
+    modifyGscanConf(gscanConfPath, gscanConfPathTem, findIpCnt)
+    cmd = executePath + ' -iprange ' + confPath + ' -conf ' + gscanConfPathTem
+    print 'process gscan to get google ip:' + cmd + ' , get ip count:' + str(findIpCnt) + ",isForeround:" + str(
+        isNeedWait)
+    # 'pwd && cd /Volumes/sd_card/gscan-master/example/local && cd gscan && ./gscan-master -iprange="./my.conf"',
+    process = subprocess.Popen(
+        cmd,
+        0,
+        None,
+        # subprocess.PIPE,
+        # subprocess.PIPE,
+        # subprocess.PIPE,
+        None,
+        None,
+        None,
+        None,
+        False,
+        True,
+        None,
+        None,
+        False,
+        None,
+        0)
+    if isNeedWait:
+        process.wait()
+    fp = open(googleIpPath, 'r')
+    content = fp.readline()
+    fp.close
+    return content
+
+
 # 获取文件修改时间
 def getFileModifyTime(path):
-	if path != None:
-		ft = os.stat(path)
-		return  ft.st_mtime
-	return time.time()
+    if path != None:
+        ft = os.stat(path)
+        return ft.st_mtime
+    return time.time()
+
+
 # 获取第一次启动ip
 def getFirstStartUpIp():
-	if os.path.exists(NET_GSCAN_FILE) and time.time() - getFileModifyTime(NET_GSCAN_FILE) < GET_NET_IP_LIST_SEP:
-		print 'use local ip_file because time short'
-		fileIp = readIpFromFile(NET_GSCAN_FILE)
-		if fileIp != None and len(fileIp) > 0:
-			return fileIp
-	print 'real get net ip_file'
-	content = getAvailableIp()
-	# 保存下载到的数据
-	if content != None:
-		print 'get net ip success, now save to files'
-		saveIpToFile(content, NET_GSCAN_FILE)
-	else:
-		print 'get net ip fail, try to use the old file!'
-		return readIpFromFile(NET_GSCAN_FILE)
-	return content
+    if os.path.exists(NET_GSCAN_FILE) and time.time() - getFileModifyTime(NET_GSCAN_FILE) < GET_NET_IP_LIST_SEP:
+        print 'use local ip_file because time short'
+        fileIp = readIpFromFile(NET_GSCAN_FILE)
+        if fileIp != None and len(fileIp) > 0:
+            return fileIp
+    print 'real get net ip_file'
+    content = getAvailableIp()
+    # 保存下载到的数据
+    if content != None:
+        print 'get net ip success, now save to files'
+        saveIpToFile(content, NET_GSCAN_FILE)
+    else:
+        print 'get net ip fail, try to use the old file!'
+        return readIpFromFile(NET_GSCAN_FILE)
+    return content
+
+
 def saveIpToFile(content, path):
-	if content != None:
-		file = open(path,"w+")
-		file.write(content)
-		file.flush()
-		file.close
+    if content != None:
+        file = open(path, "w+")
+        file.write(content)
+        file.flush()
+        file.close
+
+
 def readIpFromFile(path):
-	if path != None:
-		file = open(path)
-		content = file.readline()
-		file.close
-		return content
-	return None
+    if path != None:
+        file = open(path)
+        content = file.readline()
+        file.close
+        return content
+    return None
+
 
 # 获取已经扫描好的上传到github以及备用服务器的ip列表
 def getAvailableIp():
-	i = 0
-	ispType = None
-	while i < NET_RETRY_CNT and ispType == None:
-		ispType = getIpType()
-		i = i + 1
-	if ispType == None:
-		ispType = ISP_TYPE_DIANXIN
-	i = 0
-	ipList = None
-	while i < NET_RETRY_CNT and ipList == None:
-		ipList = getAvailableGoagentIp(ispType)
-		if ipList == None:
-			ipList = getAvailableGoagentIpWithBackupSite(ispType)
-		i = i + 1
-	if ipList == None:
-		print 'get available Ip list fail'
-	return ipList
-# 总调	
+    i = 0
+    ispType = None
+    while i < NET_RETRY_CNT and ispType == None:
+        ispType = getIpType()
+        i = i + 1
+    if ispType == None:
+        ispType = ISP_TYPE_DIANXIN
+    i = 0
+    ipList = None
+    while i < NET_RETRY_CNT and ipList == None:
+        ipList = getAvailableGoagentIp(ispType)
+        if ipList == None:
+            ipList = getAvailableGoagentIpWithBackupSite(ispType)
+        i = i + 1
+    if ipList == None:
+        print 'get available Ip list fail'
+    return ipList
+
+
+# 总调
 def startGoagentWithIpAutoGet():
-	i = 0
-	ispType = None
-	while i < NET_RETRY_CNT and ispType == None:
-		ispType = getIpType()
-		i = i + 1
-	if ispType == None:
-		ispType = ISP_TYPE_DIANXIN
-	i = 0
-	ipList = None
-	while i < NET_RETRY_CNT and ipList == None:
-		ipList = getAvailableGoagentIp(ispType)
-		if ipList == None:
-			ipList = getAvailableGoagentIpWithBackupSite(ispType)
-		i = i + 1
-	if ipList == None:
-		print 'get available Ip list fail'
-		return
-	localFileReplace(ipList)
-	#启动goagent
-	os.startfile(GOAGENT_EXE_FILE)
-if __name__=="__main__": 
-	startGoagentWithIpAutoGet()
+    i = 0
+    ispType = None
+    while i < NET_RETRY_CNT and ispType == None:
+        ispType = getIpType()
+        i = i + 1
+    if ispType == None:
+        ispType = ISP_TYPE_DIANXIN
+    i = 0
+    ipList = None
+    while i < NET_RETRY_CNT and ipList == None:
+        ipList = getAvailableGoagentIp(ispType)
+        if ipList == None:
+            ipList = getAvailableGoagentIpWithBackupSite(ispType)
+        i = i + 1
+    if ipList == None:
+        print 'get available Ip list fail'
+        return
+    localFileReplace(ipList)
+    # 启动goagent
+    os.startfile(GOAGENT_EXE_FILE)
+
+
+if __name__ == "__main__":
+    startGoagentWithIpAutoGet()

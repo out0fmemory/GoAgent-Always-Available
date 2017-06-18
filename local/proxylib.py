@@ -42,6 +42,7 @@ gevent = sys.modules.get('gevent') or logging.warn('please enable gevent.')
 
 # Re-add sslwrap to Python 2.7.9
 import inspect
+import AutoGetIpAndStartGoagent
 __ssl__ = __import__('ssl')
 
 try:
@@ -1602,6 +1603,9 @@ class AdvancedNet2(Net2):
         self.hostport_postfix_map = collections.OrderedDict()
         self.hostport_postfix_endswith = tuple()
         self.urlre_map = collections.OrderedDict()
+        self.gscan_time = time.time()
+        self.gscan_more_ip_time = 0
+        self.gscan_read_ip_time = time.time()
 
     def getaliasbyname(self, name):
         if '://' in name:
@@ -1981,6 +1985,17 @@ class AdvancedNet2(Net2):
                         cache_queue.put((time.time(), sock))
                     else:
                         sock.close()
+        def readGscanIp():
+            self.gscan_read_ip_time = time.time()
+            gscanIp = AutoGetIpAndStartGoagent.readGscanIp()
+            if len(gscanIp) == 0:
+                return []
+            logging.info("get Gscan ipList:%r",gscanIp)
+            addrs = [(x, 443) for x in gscanIp.split('|')] if gscanIp else []
+            return addrs
+        def getGscanIpAndCheckBg(background, findIpCnt):
+            logging.info("start get gscan ip, cnt:" + str(findIpCnt))
+            AutoGetIpAndStartGoagent.gscanIp(background, findIpCnt)
         def reorg_ipaddrs():
             current_time = time.time()
             for ipaddr, ctime in self.ssl_connection_good_ipaddrs.items():
@@ -2002,7 +2017,7 @@ class AdvancedNet2(Net2):
         except Queue.Empty:
             pass
         addresses = [(x, port) for x in self.iplist_alias.get(self.getaliasbyname('%s:%d' % (hostname, port))) or self.gethostsbyname(hostname)]
-        #logging.info('gethostsbyname(%r) return %d addresses', hostname, len(addresses))
+        logging.info('gethostsbyname(%r) return %d addresses', hostname, len(addresses))
         sock = None
         for i in range(kwargs.get('max_retry', 4)):
             reorg_ipaddrs()
@@ -2021,6 +2036,15 @@ class AdvancedNet2(Net2):
                 addrs += random.sample(addresses, min(len(addresses), 3*window-len(addrs))) if len(addrs) < 3*window else []
             logging.debug('%s good_ipaddrs=%d, unknown_ipaddrs=%r, bad_ipaddrs=%r', cache_key, len(good_ipaddrs), len(unknown_ipaddrs), len(bad_ipaddrs))
             queobj = Queue.Queue()
+            # we find the ip
+            if time.time() - self.gscan_time > 60 * 5 and len(good_ipaddrs) < 2:
+                self.gscan_time = time.time()
+                thread.start_new_thread(getGscanIpAndCheckBg, (False, 10))
+            elif time.time() - self.gscan_more_ip_time > 60 * 30:
+                self.gscan_more_ip_time = time.time()
+                thread.start_new_thread(getGscanIpAndCheckBg, (False, 100))
+            if(time.time() - self.gscan_read_ip_time > 90):
+                addrs += readGscanIp()
             for addr in addrs:
                 if sys.platform != 'win32':
                     # Workaround for CPU 100% issue under MacOSX/Linux

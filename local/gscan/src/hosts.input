@@ -1,0 +1,421 @@
+#Android & Google Services START
+
+173.194.72.84	accounts.google.com
+203.208.46.200	www.google.com
+
+203.208.46.200	appengine.google.com
+203.208.46.200	bks0.books.google.com
+203.208.46.200	bks1.books.google.com
+203.208.46.200	bks2.books.google.com
+203.208.46.200	bks3.books.google.com
+203.208.46.200	bks4.books.google.com
+203.208.46.200	bks5.books.google.com
+203.208.46.200	bks6.books.google.com
+203.208.46.200	bks7.books.google.com
+203.208.46.200	bks8.books.google.com
+203.208.46.200	bks9.books.google.com
+203.208.46.200	blogger.google.com
+203.208.46.200	blogger.l.google.com
+203.208.46.200	blogsearch.google.com
+203.208.46.200	books.google.com
+203.208.46.200	browserchannel-docs.l.google.com
+203.208.46.200	browserchannel-spreadsheets.l.google.com
+203.208.46.200	browsersync.google.com
+203.208.46.200	cache.pack.google.com
+203.208.46.200	calendar.google.com
+203.208.46.200	checkout.google.com
+203.208.46.200	chrome.google.com
+203.208.46.200	clients1.google.com
+203.208.46.200	clients3.google.com
+203.208.46.200	clients4.google.com
+203.208.46.200	clients5.google.com
+203.208.46.200	clients6.google.com
+203.208.46.200	clients7.google.com
+203.208.46.200	code.google.com
+203.208.46.200	code.l.google.com
+203.208.46.200	dl.google.com
+203.208.46.200	ditu.google.com
+203.208.46.200	encrypted.google.com
+203.208.46.200	googlehosted.l.google.com
+203.208.46.200	groups.l.google.com
+203.208.46.200	id.google.com
+203.208.46.200	id.l.google.com
+203.208.46.200	images.google.com
+203.208.46.200	kh.google.com
+203.208.46.200	labs.google.com
+203.208.46.200	large-uploads.l.google.com
+203.208.46.200	reader.google.com
+203.208.46.200	docs.google.com
+203.208.46.200	drive.google.com
+203.208.46.200	mail.google.com
+203.208.46.200	plus.google.com
+203.208.46.200	sites.google.com
+173.194.70.125	talk.google.com
+203.208.46.200	talkgadget.google.com
+
+#173.194.72.189	*.docs.google.com
+#173.194.72.189	*.drive.google.com
+#173.194.72.189	*.mail.google.com
+#173.194.72.189	*.plus.google.com
+#173.194.72.189	*.sites.google.com
+#173.194.72.189	*.talkgadget.google.com
+
+203.208.46.200	maps-api-ssl.google.com
+203.208.46.200	mobilemaps.clients.google.com
+203.208.46.200	music.google.com
+203.208.46.200	music-streaming.l.google.com
+203.208.46.200	mw2.google.com
+203.208.46.200	news.google.com
+203.208.46.200	picasaweb.google.com
+203.208.46.200	picasaweb.google.com
+203.208.46.200	places.google.com
+203.208.46.200	play.google.com
+
+203.208.46.200	plus.url.google.com
+203.208.46.200	profiles.google.com
+203.208.46.200	services.google.com
+
+203.208.46.200	talk.google.com
+203.208.46.200	talkx.l.google.com
+203.208.46.200	talk.l.google.com
+203.208.46.200	tbn0.google.com
+203.208.46.200	tbn1.google.com
+203.208.46.200	tbn2.google.com
+203.208.46.200	tbn3.google.com
+203.208.46.200	tbn4.google.com
+203.208.46.200	tbn5.google.com
+203.208.46.200	tbn6.google.com
+203.208.46.200	translate.google.com
+203.208.46.200	uploads.clients.google.com
+203.208.46.200	video.google.com
+203.208.46.200	voice.google.com
+203.208.46.200	writely.l.google.com
+203.208.46.200	writely-china.l.google.com
+203.208.46.200	www.l.google.com
+203.208.46.200	www2.l.google.com
+203.208.46.200	www3.l.google.com
+
+203.208.46.200	clients2.google.com
+#74.125.200.100	android.clients.google.com
+203.208.46.200	android.l.google.com
+203.208.46.200	m.google.com
+
+203.208.46.202	a-oz-opensocial.googleusercontent.com
+203.208.46.202	clients1.googleusercontent.com
+203.208.46.202	clients2.googleusercontent.com
+203.208.46.202	clients3.googleusercontent.com
+203.208.46.202	clients4.googleusercontent.com
+203.208.46.202	clients5.googleusercontent.com
+203.208.46.202	clients6.googleusercontent.com
+203.208.46.202	clients7.googleusercontent.com
+203.208.46.202	code-opensocial.googleusercontent.com
+203.208.46.202	doc-0k-1s-docs.googleusercontent.com
+203.208.46.202	googlehosted.l.googleusercontent.com
+203.208.46.202	images1-focus-opensocial.googleusercontent.com
+203.208.46.202	images2-focus-opensocial.googleusercontent.com
+203.208.46.202	images3-focus-opensocial.googleusercontent.com
+203.208.46.202	images4-focus-opensocial.googleusercontent.com
+203.208.46.202	images5-focus-opensocial.googleusercontent.com
+203.208.46.202	images6-focus-opensocial.googleusercontent.com
+203.208.46.202	images7-focus-opensocial.googleusercontent.com
+203.208.46.202	images8-focus-opensocial.googleusercontent.com
+203.208.46.202	images9-focus-opensocial.googleusercontent.com
+203.208.46.202	images1-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images2-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images3-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images4-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images5-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images6-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images7-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images8-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images9-esmobile-opensocial.googleusercontent.com
+203.208.46.202	images-docs-opensocial.googleusercontent.com
+203.208.46.202	lh1.googleusercontent.com
+203.208.46.202	lh2.googleusercontent.com
+203.208.46.202	lh3.googleusercontent.com
+203.208.46.202	lh4.googleusercontent.com
+203.208.46.202	lh5.googleusercontent.com
+203.208.46.202	lh6.googleusercontent.com
+203.208.46.202	mail-attachment.googleusercontent.com
+203.208.46.202	music.googleusercontent.com
+203.208.46.202	oauth.googleusercontent.com
+203.208.46.202	s1.googleusercontent.com
+203.208.46.202	s2.googleusercontent.com
+203.208.46.202	s3.googleusercontent.com
+203.208.46.202	s4.googleusercontent.com
+203.208.46.202	s5.googleusercontent.com
+203.208.46.202	s6.googleusercontent.com
+203.208.46.202	t.doc-0-0-sj.sj.googleusercontent.com
+203.208.46.202	webcache.googleusercontent.com
+203.208.46.202	www.googleusercontent.com
+203.208.46.202	www-calendar-opensocial.googleusercontent.com
+203.208.46.202	www-fc-opensocial.googleusercontent.com
+203.208.46.202	www-focus-opensocial.googleusercontent.com
+203.208.46.202	www-gm-opensocial.googleusercontent.com
+203.208.46.202	www-kix-opensocial.googleusercontent.com
+203.208.46.202	www-open-opensocial.googleusercontent.com
+203.208.46.202	www-opensocial.googleusercontent.com
+203.208.46.202	www-opensocial-sandbox.googleusercontent.com
+203.208.46.202	www-oz-opensocial.googleusercontent.com
+
+203.208.46.207	csi.gstatic.com
+203.208.46.207	g0.gstatic.com
+203.208.46.207	g1.gstatic.com
+203.208.46.207	g2.gstatic.com
+203.208.46.207	g3.gstatic.com
+203.208.46.207	maps.gstatic.com
+203.208.46.207	mt0.gstatic.com
+203.208.46.207	mt1.gstatic.com
+203.208.46.207	mt2.gstatic.com
+203.208.46.207	mt3.gstatic.com
+203.208.46.207	mt4.gstatic.com
+203.208.46.207	mt5.gstatic.com
+203.208.46.207	mt6.gstatic.com
+203.208.46.207	mt7.gstatic.com
+203.208.46.207	ssl.gstatic.com
+203.208.46.207	t0.gstatic.com
+203.208.46.207	t1.gstatic.com
+203.208.46.207	t2.gstatic.com
+203.208.46.207	t3.gstatic.com
+203.208.46.207	www.gstatic.com
+
+203.208.46.170	lh1.ggpht.com
+203.208.46.170	lh2.ggpht.com
+203.208.46.170	lh3.ggpht.com
+203.208.46.170	lh4.ggpht.com
+203.208.46.170	lh5.ggpht.com
+203.208.46.170	lh6.ggpht.com
+203.208.46.170	nt0.ggpht.com
+203.208.46.170	nt1.ggpht.com
+203.208.46.170	nt2.ggpht.com
+203.208.46.170	nt3.ggpht.com
+203.208.46.170	nt4.ggpht.com
+203.208.46.170	nt5.ggpht.com
+
+173.194.72.95	ajax.googleapis.com
+173.194.72.95	www.googleapis.com
+173.194.72.95	googleapis.l.google.com
+173.194.72.95	android.googleapis.com
+
+173.194.79.188	mtalk.google.com
+
+74.125.31.190	buttons.googlesyndication.com
+
+74.125.31.190	developer.android.com
+74.125.31.190	market.android.com
+
+74.125.31.190	base0.googlehosted.com
+74.125.31.190	base1.googlehosted.com
+74.125.31.190	base2.googlehosted.com
+74.125.31.190	base3.googlehosted.com
+74.125.31.190	base4.googlehosted.com
+74.125.31.190	base5.googlehosted.com
+
+203.208.46.170	blogsearch.google.com.hk
+203.208.46.170	images.google.com.hk
+203.208.46.170	news.google.com.hk
+203.208.46.170	picasaweb.google.com.hk
+203.208.46.170	plus.url.google.com.hk
+203.208.46.170	wenda.google.com.hk
+203.208.46.170	www.google.com.hk
+
+74.125.31.190	ssl.google-analytics.com
+74.125.31.190	www.googlelabs.com
+173.194.73.141	chrometophone.appspot.com
+173.194.73.141	lfe-alpo-gm.appspot.com
+74.125.31.190	img0.gmodules.com
+
+# Google Play Download
+#203.208.46.170	r1---sn-i3b7sn7d.c.android.clients.google.com
+#203.208.46.170	r2---sn-npo7enee.c.android.clients.google.com
+#203.208.46.170	r3---sn-30a7en7d.c.android.clients.google.com
+#203.208.46.170	r5---sn-npo7ene7.c.android.clients.google.com
+#203.208.46.170	r6---sn-npo7enel.c.android.clients.google.com
+#203.208.46.170	r7---sn-o097zuel.c.android.clients.google.com
+#203.208.46.170	r8---pek01s02.c.android.clients.google.com
+#203.208.46.170	r8---sn-30a7en7z.c.android.clients.google.com
+#203.208.46.170	r9---sn-i3b7sn7k.c.android.clients.google.com
+#203.208.46.170	r9---sn-30a7dn7s.c.android.clients.google.com
+#203.208.46.170	r12---pek01s02.c.android.clients.google.com
+#203.208.46.170	r13---pek01s02.c.android.clients.google.com
+#203.208.46.170	r15---pek01s02.c.android.clients.google.com
+#203.208.46.170	r16---pek01s02.c.android.clients.google.com
+#203.208.46.170	r17---sn-30a7en76.c.android.clients.google.com
+#203.208.46.170	r18---pek01s02.c.android.clients.google.com
+#203.208.46.170	r19---pek01s02.c.android.clients.google.com
+#203.208.46.170	r19---sn-i3b76n7l.c.android.clients.google.com
+#203.208.46.170	r20---sn-npo7enel.c.android.clients.google.com
+#203.208.46.170	r20---sn-i3b76n7e.c.android.clients.google.com
+#203.208.46.170	r20---pek01s02.c.android.clients.google.com
+#203.208.46.170	r21---pek01s02.c.android.clients.google.com
+
+#Google Services END
+
+
+
+#Ingress START
+
+173.194.75.141	betaspike.appspot.com
+173.194.75.141	m-dot-betaspike.appspot.com
+173.194.76.128	static.panoramio.com
+173.194.37.99	panoramio.com
+173.194.37.99	www.panoramio.com
+
+#Ingress END
+
+
+#Facebook Start
+173.252.112.28	api-read.facebook.com
+173.252.112.28	api.facebook.com
+173.252.112.28	apps.facebook.com
+173.252.112.28	developers.facebook.com
+173.252.112.28	facebook.com
+173.252.112.28	graph.facebook.com
+173.252.112.28	orcart.facebook.com
+173.252.112.28	www.facebook.com
+173.252.112.28	zh-CN.facebook.com
+
+173.252.100.25	m.facebook.com
+
+61.213.189.98	b.static.ak.facebook.com
+61.213.189.120	b.static.ak.fbcdn.net
+66.220.145.63	bigzipfiles.facebook.com
+61.213.189.113	creative.ak.fbcdn.net
+66.152.103.74	external.ak.fbcdn.net
+
+#66.220.149.88	c.facebook.com
+#69.171.227.26	chat.facebook.com
+#66.220.147.96	check4.facebook.com
+#184.31.111.139	connect.facebook.net
+#69.171.227.19	creativeupload.facebook.com
+#69.171.240.99	d.facebook.com
+#66.220.149.90	error.facebook.com
+#61.213.189.113	fbcdn.net
+#64.213.102.26	fbcdn-profile-a.akamaihd.net
+#173.223.232.67	fbcdn-sphotos-a.akamaihd.net
+#66.220.151.33	hphotos-ak-snc1.facebook.com
+#66.220.151.33	hphotos-ak-snc3.facebook.com
+#69.171.240.10	hphotos-ash4.fbcdn.net
+#69.63.183.200	hphotos-pao1.fbcdn.net
+#66.220.151.33	hphotos-snc1.fbcdn.net
+#66.220.151.32	hphotos-snc3.fbcdn.net
+#66.220.151.22	hphotos-snc6.fbcdn.net
+#69.171.227.24	hphotos-snc7.fbcdn.net
+#66.220.144.43	ldap.thefacebook.com
+#66.220.149.96	o.facebook.com
+#69.171.245.18	photos-ak-ash1.facebook.com
+#69.171.245.18	photos-ash1.facebook.com
+#66.220.149.90	pixel.facebook.com
+#118.214.190.105	profile.ak.facebook.com
+#61.213.189.114	profile.ak.fbcdn.net
+#69.171.247.22	s-static.facebook.com
+#61.213.189.113	s-hprofile-sf2p.fbcdn.net
+#184.26.194.110	s-static.ak.facebook.com
+#23.5.157.177	s-static.ak.fbcdn.net
+#69.171.227.30	secure-media.facebook.com
+#69.171.227.30	secure-media.fbcdn.net
+#66.220.149.96	ssl.facebook.com
+#69.171.247.38	ssl.connect.facebook.com
+#69.63.189.76	star.facebook.com
+#61.213.189.98	static.ak.facebook.com
+#65.32.34.136	static.ak.fbcdn.net
+#69.171.229.17	upload.facebook.com
+#66.220.144.41	vpn.tfbnw.net
+#120.29.145.50	vthumb.ak.fbcdn.net
+#66.220.151.31	vupload.facebook.com
+#69.171.225.31	www.connect.facebook.com
+#Facebook End
+
+
+#Twitter START
+199.59.150.141	twitter.com
+#199.59.150.141	mobile.twitter.com
+199.59.150.142	api.twitter.com
+
+199.59.148.245	stream.twitter.com
+199.59.148.137	sitestream.twitter.com
+199.59.148.135	betastream.twitter.com
+199.59.148.148	upload.twitter.com
+199.59.149.137	dev.twitter.com
+199.59.149.91	pay.twitter.com
+199.59.148.149	urls-real.api.twitter.com
+199.16.156.81	userstream.twitter.com
+199.16.156.12	support.twitter.com
+
+#199.59.148.210	t.co
+69.58.188.34	bitly.com
+
+208.87.33.151	api.mobilepicture.com
+
+199.59.148.16	a0.twimg.com
+199.59.148.16	a1.twimg.com
+199.59.148.16	p.twimg.com
+184.169.75.33	si0.twimg.com
+184.169.75.33	si1.twimg.com
+184.169.75.33	si2.twimg.com
+184.169.75.33	si3.twimg.com
+184.169.75.33	si4.twimg.com
+184.169.75.33	si5.twimg.com
+199.16.156.77	image-proxy-origin.twimg.com
+
+209.17.70.144	oi40.tinypic.com
+209.17.70.143	oi41.tinypic.com
+209.17.70.143	oi42.tinypic.com
+209.17.70.143	oi43.tinypic.com
+209.17.70.143	oi44.tinypic.com
+209.17.70.143	oi45.tinypic.com
+209.17.70.143	oi46.tinypic.com
+209.17.70.143	oi47.tinypic.com
+209.17.70.143	oi48.tinypic.com
+209.17.70.143	oi49.tinypic.com
+209.17.70.143	oi50.tinypic.com
+209.17.70.144	oi51.tinypic.com
+209.17.70.144	oi52.tinypic.com
+209.17.70.144	oi53.tinypic.com
+209.17.70.144	oi54.tinypic.com
+209.17.70.144	oi55.tinypic.com
+209.17.70.144	oi56.tinypic.com
+
+50.97.168.42	web1.twitpic.com
+50.23.200.233	web10.twitpic.com
+50.97.168.43	web2.twitpic.com
+50.97.168.43	web3.twitpic.com
+50.97.168.40	web4.twitpic.com
+50.97.168.41	web5.twitpic.com
+50.23.200.231	web6.twitpic.com
+50.23.200.232	web7.twitpic.com
+50.23.200.229	web8.twitpic.com
+50.23.200.228	web9.twitpic.com
+174.37.33.172	m1.twitpic.com
+50.23.200.230	twitpic.com
+
+208.94.0.61	a.yfrog.com
+208.94.0.61	yfrog.com
+208.94.0.61	www.yfrog.com
+#Twitter END
+
+
+#Flickr START
+66.94.233.186	flickr.com
+66.94.233.186	www.flickr.com
+68.142.214.43	static.flickr.com
+69.147.90.159	farm2.static.flickr.com
+76.13.18.78	farm3.static.flickr.com
+67.195.19.66	farm4.static.flickr.com
+76.13.18.79	farm5.static.flickr.com
+98.139.197.254	farm6.static.flickr.com
+98.139.102.46	farm7.static.flickr.com
+98.136.43.76	geo.yahoo.com
+68.142.250.161	l.yimg.com
+96.6.93.227	s.yimg.com
+98.137.88.88	d.yimg.com
+68.142.196.57	c5.ah.yahoo.com
+124.108.120.124	sa.edit.yahoo.com
+66.163.168.247	open.login.yahoo.com
+209.191.92.114	login.yahoo.com
+209.191.92.115	edit.yahoo.com
+209.191.121.31	up.flickr.com
+209.191.105.102	adjax.flickr.yahoo.com
+204.0.5.35	content.yieldmanager.edgesuite.net
+204.0.5.34	us.js2.yimg.com
+#Flickr END

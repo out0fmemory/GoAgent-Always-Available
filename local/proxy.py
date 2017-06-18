@@ -764,6 +764,7 @@ class GAEProxyHandler(SimpleProxyHandler):
     def first_run(self):
         """GAEProxyHandler setup, init domain/iplist map"""
         if not common.PROXY_ENABLE:
+            self.resolveUseableIp()
             logging.info('resolve common.IPLIST_ALIAS names=%s to iplist', list(common.IPLIST_ALIAS))
             common.resolve_iplist()
         random.shuffle(common.GAE_APPIDS)
@@ -784,8 +785,31 @@ class GAEProxyHandler(SimpleProxyHandler):
                 net2.enable_connection_keepalive()
             net2.enable_openssl_session_cache()
             self.__class__.net2 = net2
+    def resolveUseableIp(self):
+        # Get First Setup_Ip From github and backupServer
+        githubIpList = getGscanIp(5)#AutoGetIpAndStartGoagent.getFirstStartUpIp()
+        logging.info('get github first setup Ips: %s', githubIpList)
+        oriIpList = common.CONFIG.items('iplist')
+        iplist = githubIpList
+        if githubIpList == None:
+            print 'ori'
+            print oriIpList
+            iplist = oriIpList
+        else:
+            common.GSCAN_IP_LIST = githubIpList
+            common.GSCAN_TIME = time.time()
+
+        common.IPLIST_ALIAS = collections.OrderedDict((k, iplist.split('|') if v else []) for k, v in oriIpList)
+        logging.info('final first setup Ips: %s', common.IPLIST_ALIAS)
+        logging.info('self.gscan_ip: %s', common.GSCAN_IP_LIST)
+        common.IPLIST_PREDEFINED = [x for x in sum(common.IPLIST_ALIAS.values(), []) if re.match(r'^\d+\.\d+\.\d+\.\d+$', x) or ':' in x]
+        if common.GAE_IPV6 and 'google_ipv6' in common.IPLIST_ALIAS:
+            for name in common.IPLIST_ALIAS.keys():
+                if name.startswith('google') and name not in ('google_ipv6', 'google_talk'):
+                    common.IPLIST_ALIAS[name] = common.IPLIST_ALIAS['google_ipv6']
 
     def extend_iplist(self, iplist_name):
+        # self.resolveUseableIp()
         hosts = [x for x in common.CONFIG.get('iplist', iplist_name).split('|') if not re.match(r'^\d+\.\d+\.\d+\.\d+$', x) and ':' not in x]
         logging.info('extend_iplist start for hosts=%s', hosts)
         new_iplist = []
@@ -820,7 +844,7 @@ class GAEProxyHandler(SimpleProxyHandler):
                 new_iplist += iplist
             except Queue.Empty:
                 break
-        logging.info('extend_iplist finished, added %s', len(set(self.net2.iplist_alias[iplist_name])-set(new_iplist)))
+        logging.info('extend_iplist finished, added %s', set(self.net2.iplist_alias[iplist_name])-set(new_iplist))
         self.net2.add_iplist_alias(iplist_name, new_iplist)
 
 
@@ -1355,25 +1379,27 @@ class Common(object):
         self.NOFAKEHTTPS_SITES = set(nofakehttps_sites)
         self.URLREWRITE_MAP = urlrewrite_map
         self.RULE_MAP = rule_map
-        # Get First Setup_Ip From github and backupServer
-        githubIpList = AutoGetIpAndStartGoagent.getFirstStartUpIp()
-        logging.info('get github first setup Ips: %s', githubIpList)
-        oriIpList = self.CONFIG.items('iplist')
-        iplist = githubIpList
-        if githubIpList == None:
-            iplist = oriIpList
-        else:
-            self.GSCAN_IP_LIST = githubIpList
-            self.GSCAN_TIME = time.time()
-
-        self.IPLIST_ALIAS = collections.OrderedDict((k, iplist.split('|') if v else []) for k, v in oriIpList)
-        logging.info('final first setup Ips: %s', self.IPLIST_ALIAS)
-        logging.info('self.gscan_ip: %s', self.GSCAN_IP_LIST)
-        self.IPLIST_PREDEFINED = [x for x in sum(self.IPLIST_ALIAS.values(), []) if re.match(r'^\d+\.\d+\.\d+\.\d+$', x) or ':' in x]
-        if self.GAE_IPV6 and 'google_ipv6' in self.IPLIST_ALIAS:
-            for name in self.IPLIST_ALIAS.keys():
-                if name.startswith('google') and name not in ('google_ipv6', 'google_talk'):
-                    self.IPLIST_ALIAS[name] = self.IPLIST_ALIAS['google_ipv6']
+        # # Get First Setup_Ip From github and backupServer
+        # githubIpList = None#AutoGetIpAndStartGoagent.getFirstStartUpIp()
+        # logging.info('get github first setup Ips: %s', githubIpList)
+        # oriIpList = self.CONFIG.items('iplist')
+        # iplist = githubIpList
+        # if githubIpList == None:
+        #     print 'ori'
+        #     print oriIpList
+        #     iplist = oriIpList
+        # else:
+        #     self.GSCAN_IP_LIST = githubIpList
+        #     self.GSCAN_TIME = time.time()
+        #
+        # self.IPLIST_ALIAS = collections.OrderedDict((k, iplist.split('|') if v else []) for k, v in oriIpList)
+        # logging.info('final first setup Ips: %s', self.IPLIST_ALIAS)
+        # logging.info('self.gscan_ip: %s', self.GSCAN_IP_LIST)
+        # self.IPLIST_PREDEFINED = [x for x in sum(self.IPLIST_ALIAS.values(), []) if re.match(r'^\d+\.\d+\.\d+\.\d+$', x) or ':' in x]
+        # if self.GAE_IPV6 and 'google_ipv6' in self.IPLIST_ALIAS:
+        #     for name in self.IPLIST_ALIAS.keys():
+        #         if name.startswith('google') and name not in ('google_ipv6', 'google_talk'):
+        #             self.IPLIST_ALIAS[name] = self.IPLIST_ALIAS['google_ipv6']
 
         self.PAC_ENABLE = self.CONFIG.getint('pac', 'enable')
         self.PAC_IP = self.CONFIG.get('pac', 'ip')
@@ -1488,15 +1514,14 @@ class Common(object):
                 logging.error('resolve %s host return empty! start use gscan to get ip!', name)
                 #sys.exit(-1)
         # get ip from gscan result
-            #if (self.GSCAN_IP_LIST == None and (time.time() - self.GSCAN_TIME > 60) or resolved_iplist == None or len(resolved_iplist) == 0) :
+            if ((time.time() - self.GSCAN_TIME > 120) or resolved_iplist == None or len(resolved_iplist) == 0) :
                 logging.info("real time get gscan ip")
-                # getGscanIp(5)
+                getGscanIp(5)
             gscanIpList = common.GSCAN_IP_LIST
             if gscanIpList != None:
                 logging.info('realtime get gscan ips:%s', gscanIpList)
                 logging.info('resolve name=%s host to iplist=%r', name, resolved_iplist)
                 common.IPLIST_ALIAS[name] = gscanIpList.split('|')
-                # resolved_iplist = gscanIpList.split('|')
         if self.IPLIST_ALIAS.get('google_cn', []):
             try:
                 for _ in xrange(4):
@@ -1625,10 +1650,11 @@ def pre_start():
 
 # get gscan IpList
 def getGscanIp(ipCnt):
-    gscanIpList = AutoGetIpAndStartGoagent.gscanIp()
+    gscanIpList = AutoGetIpAndStartGoagent.gscanIp(True, ipCnt)
     common.GSCAN_IP_LIST = gscanIpList
     common.GSCAN_TIME = time.time()
     logging.info("get Gscan ipList:%r",common.GSCAN_IP_LIST)
+    return gscanIpList
 def main():
     global __file__
     __file__ = os.path.abspath(__file__)
@@ -1684,7 +1710,9 @@ def main():
     if common.GAE_ENABLE:
         # scan gscanIp on startup
         logging.info("first getGscanIp")
-        #thread.start_new_thread(getGscanIp,(5,))
+        # iplist = getGscanIp(5)
+        # print iplist
+        # thread.start_new_thread(getGscanIp,(5,))
         if common.PHP_ENABLE:
             GAEProxyHandler.handler_plugins['php'] = php_server.RequestHandlerClass.handler_plugins['php']
         if os.name == 'nt':
