@@ -41,5 +41,5 @@ gen_all() {
 
 gen_all 铁通宽带高稳定性Ip.txt
 gen_all 电信宽带高稳定性Ip.txt
-gen_all 阿里云多线高稳定性Ip.txt
+#gen_all 阿里云多线高稳定性Ip.txt
 #gen_all googleip.txt
