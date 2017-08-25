@@ -30,6 +30,7 @@ import Queue
 import SocketServer
 import BaseHTTPServer
 import httplib
+httplib._MAXHEADERS = 1000
 import urllib
 import urllib2
 import urlparse
