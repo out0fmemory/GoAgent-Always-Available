@@ -33,3 +33,28 @@
 谷歌ip地址库引用自 https://github.com/peqing/GoogleIPRange ， thx.  
 扫描工具gscan 引用自https://github.com/yinqiwen/gscan ，thx.  
 部署工具引用自XX-NET https://github.com/XX-net/XX-Net/tree/master/code/default/gae_proxy/server ， thx.
+
+# license
+Copyright (C) out0fmemory <jiu4majia2@163.com>, 2017
+
+This work is free.  You can redistribute it and/or modify it under the
+terms of the Do What The Fuck You Want To But It's Not My Fault Public
+License, Version 1, as published by Ben McGinnes:
+
+    DO WHAT THE FUCK YOU WANT TO BUT IT'S NOT MY FAULT PUBLIC LICENSE
+                    Version 1, October 2013
+
+ Copyright (C) 2013 Ben McGinnes <ben@adversary.org>
+
+ Everyone is permitted to copy and distribute verbatim or modified
+ copies of this license document, and changing it is allowed as long
+ as the name is changed.
+
+   DO WHAT THE FUCK YOU WANT TO BUT IT'S NOT MY FAULT PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.
+
+  1. Do not hold the author(s), creator(s), developer(s) or
+     distributor(s) liable for anything that happens or goes wrong
+     with your use of the work.
