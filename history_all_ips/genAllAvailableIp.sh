@@ -2,10 +2,9 @@
 
 # name
 gen_all() {
-    cnt=`git --git-dir=.git --work-tree=.  rev-list HEAD --count`
-    all_name='history_all_ips/'${1}_all.txt
+    cnt=`git --git-dir=../.git --work-tree=../  rev-list HEAD --count`
+    all_name=${1}_all.txt
     rm -f ${all_name}
-    echo -n "|" > seperator
     for (( i = 0; i < cnt; i++ )); do
         git show HEAD~$i:${1} > tem
         temStr=`cat tem`
@@ -35,7 +34,6 @@ gen_all() {
             rm -f tem
         fi
     done
-    rm -f seperator
     rm -f tem
 }
 
