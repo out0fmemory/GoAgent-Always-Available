@@ -1,6 +1,10 @@
 # GoAgent-Always-available
 一直可用的GoAgent，会定时扫描可用的google gae ip，goagent为2015年5月份左右的源码 
 
+# 关于最近无可用ip的问题
+#### 借用一句话：Don‘t panic
+#### 过了这段时间自然又可以fq了
+
 # 重要说明  
 #### 0、最新版本已经更新了自动获取ip逻辑，可以不依赖git仓库上每日上传的ip文件了，大家可以更新代码，直接运行local文件夹下的proxy.py, 问题请发issues😆
 
