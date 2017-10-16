@@ -2,6 +2,7 @@
 一直可用的GoAgent，会定时扫描可用的google gae ip，goagent为2015年5月份左右的源码 
 
 # 关于最近无可用ip的问题
+### 会用goproxy的试试这个项目https://github.com/out0fmemory/Goproxy-Always-Available ，目前开启quic后还是可以用的
 #### 借用一句话：Don‘t panic
 #### 过了这段时间自然又可以fq了
 
