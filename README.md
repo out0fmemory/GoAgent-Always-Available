@@ -5,6 +5,8 @@
 ### 会用goproxy的试试这个项目https://github.com/out0fmemory/Goproxy-Always-Available ，目前开启quic后还是可以用的
 #### 借用一句话：Don‘t panic
 #### 过了这段时间自然又可以fq了
+#### 为什么最近这段时间没有维护，就是看到有人说因为我这个项目很多可用ip被封。。。。。
+### 所以，我准备停一段时间看看，哦呵呵呵呵！！！！
 
 # 重要说明  
 #### 0、最新版本已经更新了自动获取ip逻辑，可以不依赖git仓库上每日上传的ip文件了，大家可以更新代码，直接运行local文件夹下的proxy.py, 问题请发issues😆
