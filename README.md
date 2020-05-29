@@ -1,3 +1,5 @@
+# 由于众所周知的原因，google App Engine 现在基本不可用了，此项目暂停维护---于2020年05月29日  
+
 # GoAgent-Always-available
 一直可用的GoAgent，会定时扫描可用的google gae ip，goagent为2015年5月份左右的源码 
 
